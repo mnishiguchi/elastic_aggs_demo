@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
 
-  root "pages#home"
+  resources :weather_readings
+  resources :weather_stations
+  root "weather_readings#index"
 end

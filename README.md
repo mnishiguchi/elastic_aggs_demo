@@ -1,24 +1,10 @@
-# README
+# Elastic aggs demo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Search functionality
+- Powered by [ankane/searchkick](https://github.com/ankane/searchkick)
 
-Things you may want to cover:
+#### Example data models
+- Adopted from [DataVizToolkit/weather](https://github.com/DataVizToolkit/weather)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### Complex_filter_form
+- Adopted from [codepen](http://codepen.io/anon/pen/PGMgYa?editors=1011-)

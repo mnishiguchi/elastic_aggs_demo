@@ -1,9 +1,0 @@
-.navbar-text.search_meta
-  span = pluralize(@properties.try!(:total_count), "result")
-  span = search_filters_text(@search_filters)
-
-css: 
-  .search_meta > span {
-    padding: 0 3px;
-    font-size: .8rem;
-  }

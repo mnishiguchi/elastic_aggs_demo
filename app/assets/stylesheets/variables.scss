@@ -1,84 +1,58 @@
-// Adopted from my coworker Paul's.
+// Swatch
+$gray-1: #f1f1f1;
+$gray-2: #c1c1c1;
+$gray-3: #717171;
+$gray-4: #515151;
+$gray-5: #313131;
 
-/////////////////////////////////////
-///////// Colors As I Go //////////\/
-/////////////////////////////////////
-$white: #fff;
-$black: #000;
+$blue: #268bd2;
+$blue-darker: rgba(#16527c, 0.6);
+$red: #ac4142;
+$orange: #d28445;
+$yellow: #f4bf75;
+$green: #90a959;
+$cyan: #75b5aa;
+$brown: #8f5536;
 
-$grey: rgb(240, 240, 240);
-$grey_blue: #607d8b;
-
-$admin_sidebar: rgb(46, 62, 78);
-$admin_sidebar_text: #dde3e8;
-$admin_sidebar_border: #23282e;
-
-$light: rgba(255, 255, 255, 0.5);
-$lighter: rgba(255, 255, 255, 0.2);
-
-$prim: #53e3a6;
-$teal: #64ffda;
-$cyan: #00bcd4;
-$google_blue: #3369e8;
-$google_blue_darker: #0d4ce0;
-
-$orange: #d19b3d;
-
-
-//////////////////////////////////////
-// Material Design Bootstrap Colors //
-//////////////////////////////////////
-$default-color: #fff;
-$primary-color: #009688;
-$success-color: #4caf50;
-$info-color: #03a9f4;
-$warning-color: #ff5722;
-$danger-color: #f44336;
-
-.btn-default { background-color: $default-color; &:hover, &:focus { background-color: darken($default-color, 5%) } }
-.btn-primary { background-color: $primary-color; &:hover, &:focus { background-color: lighten($primary-color, 5%)} }
-.btn-success { background-color: $success-color; &:hover, &:focus { background-color: lighten($success-color, 5%)} }
-.btn-info { background-color: $info-color; &:hover, &:focus { background-color: lighten($info-color, 5%)} }
-.btn-warning { background-color: $warning-color; &:hover, &:focus { background-color: lighten($warning-color, 5%)} }
-.btn-danger { background-color: $danger-color; &:hover, &:focus { background-color: lighten($danger-color, 5%)} }
+$twitter: #00aced;
+$facebook: #3b5998;
+$googleplus: #dd4b39;
+$pinterest: #cb2027;
+$linkedin: #007bb6;
+$youtube: #bb0000;
+$vimeo: #aad450;
+$tumblr: #32506d;
+$instagram: #517fa4;
+$flickr: #ff0084;
+$dribbble: #ea4c89;
+$quora: #a82400;
+$foursquare: #0072b1;
+$forrst: #5B9A68;
+$vk: #45668e;
+$wordpress: #21759b;
+$stumbleupon: #EB4823;
+$yahoo: #7B0099;
+$blogger: #fb8f3d;
+$soundcloud: #ff3a00;
 
 
-/////////////////////////////////////
-///////// Various Mixins ////////////
-/////////////////////////////////////
-.iconography {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $admin_sidebar_text;
-  // padding-right: 20px;
-}
+// Configure colors for the app.
+// $root-font-family: "PT Serif", 'Times New Roman', serif;
+$root-font-family: 'Lato', "Helvetica Neue", Arial, sans-serif;
+$root-font-size: 18px;
+$root-line-height: 1.6;
 
-.sidebar-icon-settings {
-  font-size: 1.25em;
-  position: absolute;
-  left: 8px;
-}
+$header-color: rgb(6,29,47);
+$footer-color: darken(rgb(6,29,47), 5%);
 
-/////////////////////////////////////
-/////// Material Icon Mixin /////////
-/////////////////////////////////////
-@mixin material-icon($icon) {
-  font-family: 'Material Icons';
-  content: $icon;
-  -webkit-font-feature-settings: 'liga';
-}
+$body-color: $gray-5;
+$body-bg: white;
 
+$link-color: $blue;
+$link-hover-color: #6a9fb5;
 
-.material-shadow { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+$heading-font-family: 'Lato', "Helvetica Neue", Arial, sans-serif;
+$heading-font-color: #425469;
 
-.btn {
-  position: relative;
-  overflow:hidden;
-  text-transform: uppercase;
-  border-radius: 2px;
-  border: none;
-  &:hover, &:focus {
-      box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
-      outline: none;
-  }
-}
+$large-breakpoint: 38em;
+$large-font-size: 20px;
