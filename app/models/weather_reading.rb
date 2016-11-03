@@ -1,29 +1,33 @@
+# == Schema Information
+#
+# Table name: weather_readings
+#
+#  id               :integer          not null, primary key
+#  station          :string
+#  reading_date     :date
+#  reading_type     :string
+#  reading_value    :integer
+#  measurement_flag :string
+#  quality_flag     :string
+#  source_flag      :string
+#  observation_time :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 class WeatherReading < ApplicationRecord
-  has_one :weather_station, :foreign_key => 'station_id', :primary_key => 'station'
 
-  scope :temps, -> { where(:reading_type => ["TMAX", "TMIN"]) }
-  scope :with_weather_station, -> { joins(:weather_station) }
-  scope :with_fields, -> { select("weather_readings.id, reading_date, reading_type, reading_value, source_flag, latitude, longitude, elevation, name") }
-  scope :for_station, ->(station) { with_weather_station.with_fields.where("weather_stations.name = ?", station) }
-  scope :sorted, -> { order("reading_type, reading_date") }
-  scope :for_year, ->(year) { where(:reading_date => Date.new(year, 1, 1)..Date.new(year+1, 1, 1)) }
+  searchkick
 
-  def self.heatmap(station)
-    sql = <<-SQL.strip_heredoc
-      WITH days AS (
-        SELECT dt
-        FROM generate_series('18360101'::timestamp, '18361231'::timestamp, '1 day') AS dt
-      ), temperature_readings AS (
-        SELECT id, reading_date, reading_value
-        FROM weather_readings
-        WHERE reading_type = 'TMAX'
-          AND station = '#{station}'
-        ORDER BY 3, 2
-      )
-      SELECT tr.*
-      FROM temperature_readings tr
-      RIGHT JOIN days ON reading_date >= days.dt AND reading_date <= days.dt;
-    SQL
-    connection.execute(sql)
+  has_one :weather_station, foreign_key: 'station_id', primary_key: 'station'
+
+  # Allows us to control what data is indexed for searching.
+  # https://github.com/ankane/searchkick#indexing
+  # NOTE: We need to reindex after making changes to the search attributes.
+  def search_data
+    merge = {
+      station_name: weather_station.name
+    }
+    attributes.merge(merge)
   end
 end
