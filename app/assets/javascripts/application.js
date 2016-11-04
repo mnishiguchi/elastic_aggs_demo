@@ -12,12 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require amcharts
-//= require serial
-//= require amcharts-light
-//= require amcharts-dark
-//= require chartData
-//= require charts
 //= require turbolinks
 //= require_tree .
 
