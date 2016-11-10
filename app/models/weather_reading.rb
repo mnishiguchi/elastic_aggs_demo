@@ -26,7 +26,10 @@ class WeatherReading < ApplicationRecord
   # NOTE: We need to reindex after making changes to the search attributes.
   def search_data
     merge = {
-      station_name: weather_station.name
+      station_name: weather_station.name,
+
+      # http://apidock.com/rails/String/to_time
+      reading_date: reading_date.to_time,
     }
     attributes.merge(merge)
   end

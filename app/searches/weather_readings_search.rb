@@ -48,27 +48,27 @@ class WeatherReadingsSearch
     end
 
     # reading date range
-    date_regex = /^\d{4}\-\d{2}\-\d{2}$/
-    reading_date_min = [
+    reading_date_min = date_to_time_object(
       search_params[:reading_date_min_year],
       search_params[:reading_date_min_month],
-      search_params[:reading_date_min_day],
-    ].join("-")
-    reading_date_max = [
+      search_params[:reading_date_min_day]
+    )
+    reading_date_max = date_to_time_object(
       search_params[:reading_date_max_year],
       search_params[:reading_date_max_month],
-      search_params[:reading_date_max_day],
-    ].join("-")
-    if reading_date_min =~ date_regex  && reading_date_max =~ date_regex
+      search_params[:reading_date_max_day]
+    )
+
+    if reading_date_min && reading_date_max
       where[:reading_date] = {
         gte: reading_date_min,
         lte: reading_date_max
       }
-    elsif reading_date_min =~ date_regex
+    elsif reading_date_min
       where[:reading_date] = {
         gte: reading_date_min
       }
-    elsif reading_date_max =~ date_regex
+    elsif reading_date_max
       where[:reading_date] = {
         lte: reading_date_max
       }
@@ -99,6 +99,11 @@ class WeatherReadingsSearch
 
     order = search_params[:sort_order].presence || :asc
     { search_params[:sort_attribute] => order }
+  end
+
+  # Arguments can be either strings or integers.
+  private def date_to_time_object(year, month, day)
+    [year, month, day].join("-").to_time
   end
 
   # This can be used for displaying active filters in UI.
