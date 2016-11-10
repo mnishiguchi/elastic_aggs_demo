@@ -6,5 +6,27 @@
 #### Example data models
 - Adopted from [DataVizToolkit/weather](https://github.com/DataVizToolkit/weather)
 
-#### Complex_filter_form
-- Adopted from [codepen](http://codepen.io/anon/pen/PGMgYa?editors=1011-)
+## Get started
+
+```
+bin/setup
+```
+
+```
+rake db:seed:import_noaa_stations          # Import NOAA weather station data
+rake db:seed:import_noaa_weather           # Import NOAA weather CSV
+```
+
+```
+npm install
+```
+
+```
+elasticsearch
+```
+
+```
+rails s
+```
+
+Visit localhose:3000
