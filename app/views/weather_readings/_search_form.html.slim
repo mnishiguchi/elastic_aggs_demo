@@ -1,3 +1,9 @@
+scss:
+  // Hidden by default
+  #advanced_search_fields {
+    // display: none;
+  }
+
 = form_tag weather_readings_path, method: :get, remote:true do |f|
 
   .input-group
@@ -29,9 +35,3 @@ javascript:
   $('button[type="submit"]').on('click', function() {
     $('#advanced_search_fields').hide();
   });
-
-scss:
-  // Hidden by default
-  #advanced_search_fields {
-    display: none;
-  }

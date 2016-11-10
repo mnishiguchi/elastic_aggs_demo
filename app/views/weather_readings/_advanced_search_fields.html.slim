@@ -1,7 +1,7 @@
-.card [style="min-width:60vw;"]
+.card [style="min-width:60vw; margin-top: 1rem;"]
   ul.list-group
     li.list-group-item
-      label Reading dates:
+      label> Reading dates:
       .row
         .col-sm-6
           = text_field_tag "reading_date_min_year", "", placeholder: "Year", class: "form-control"
@@ -12,7 +12,7 @@
           = text_field_tag "reading_date_max_month", "", placeholder: "Month", class: "form-control"
           = text_field_tag "reading_date_max_day", "", placeholder: "Day", class: "form-control"
     li.list-group-item
-      label Reading values:
+      label> Reading values:
       .row
         .col-sm-6
           = text_field_tag "reading_value_min", "", placeholder: "Min", class: "form-control"
@@ -21,10 +21,10 @@
     li.list-group-item
       .row
         .col-sm-6
-          label Reading types:
+          label> Reading types:
           = reading_type_select_tag(params)
     li.list-group-item
-      label Sorting:
+      label> Sorting:
       .row
         .col-sm-6
           = sort_attribute_select_tag(params)

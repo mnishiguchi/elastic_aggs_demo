@@ -1,7 +1,7 @@
 module WeatherReadingsHelper
 
   def weather_readings_title
-    "#{pluralize(@weather_readings.count, "reading")} found"
+    total_count_text(@weather_readings)
   end
 
 
@@ -10,21 +10,24 @@ module WeatherReadingsHelper
   # ---
 
 
-  def active_filters_text(active_filters)
-    return "" if active_filters.values.all?(&:blank?)
-
-    [].tap do |sc_text|
-      sc_text << "("
-      sc_text << reading_value_text(active_filters)
-      sc_text << reading_type_text(active_filters)
-      sc_text << sort_text(active_filters)
-      sc_text.compact!
-      sc_text << ")"
-    end.join("")
+  def total_count_text(results)
+    "#{pluralize(results.try!(:total_count), "record")} found"
   end
 
-  private def reading_value_text(active_filters)
-    min, max = active_filters[:reading_value_min], active_filters[:reading_value_max]
+  def q_text(filter_hash)
+    if filter_hash["q"]&.present?
+      filter_hash["q"]
+    end
+  end
+
+  def reading_type_text(filter_hash)
+    if filter_hash["reading_type"]&.present?
+      filter_hash["reading_type"]
+    end
+  end
+
+  def reading_value_text(filter_hash)
+    min, max = filter_hash[:reading_value_min], filter_hash[:reading_value_max]
     if min.present? && max.present?
       "Reading value: #{min} to #{max}"
     elsif min.present?
@@ -34,14 +37,14 @@ module WeatherReadingsHelper
     end
   end
 
-  private def sort_text(active_filters)
+  private def sort_text(filter_hash)
 
     # TODO
 
   end
 
-  private def reading_type_text(active_filters)
-    "Reading type: #{active_filters[:reading_type]}" if active_filters[:reading_type].present?
+  private def reading_type_text(filter_hash)
+    "Reading type: #{filter_hash[:reading_type]}" if filter_hash[:reading_type].present?
   end
 
 

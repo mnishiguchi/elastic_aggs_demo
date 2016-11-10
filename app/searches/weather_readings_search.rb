@@ -1,4 +1,5 @@
 class WeatherReadingsSearch
+  attr_reader :search_params, :query
 
   private def search_model
     WeatherReading
@@ -13,10 +14,10 @@ class WeatherReadingsSearch
   # A wrapper of Searchkick's search method. We configure common behavior of
   # all the searches here.
   # arg0: a query string
-  # arg1: an @search_params hash
+  # arg1: an search_params hash
   def search
     # Invoke Searchkick's search method with our search constraints.
-    @results ||= search_model.search(@query, search_constraints)
+    @results ||= search_model.search(query, search_constraints)
 
     # Wrap the information as a hash and pass it to PropertiesController.
     {
@@ -32,7 +33,7 @@ class WeatherReadingsSearch
       limit: 30,
       where: where,
       order: order,
-      page:  @search_params[:page],
+      page:  search_params[:page],
       per_page: 20
     }
   end
@@ -42,21 +43,21 @@ class WeatherReadingsSearch
     where = {}
 
     # reading type
-    if @search_params[:reading_type].present?
-      where[:reading_type] = @search_params[:reading_type]
+    if search_params[:reading_type].present?
+      where[:reading_type] = search_params[:reading_type]
     end
 
     # reading date range
     date_regex = /^\d{4}\-\d{2}\-\d{2}$/
     reading_date_min = [
-      @search_params[:reading_date_min_year],
-      @search_params[:reading_date_min_month],
-      @search_params[:reading_date_min_day],
+      search_params[:reading_date_min_year],
+      search_params[:reading_date_min_month],
+      search_params[:reading_date_min_day],
     ].join("-")
     reading_date_max = [
-      @search_params[:reading_date_max_year],
-      @search_params[:reading_date_max_month],
-      @search_params[:reading_date_max_day],
+      search_params[:reading_date_max_year],
+      search_params[:reading_date_max_month],
+      search_params[:reading_date_max_day],
     ].join("-")
     if reading_date_min =~ date_regex  && reading_date_max =~ date_regex
       where[:reading_date] = {
@@ -74,18 +75,18 @@ class WeatherReadingsSearch
     end
 
     # reading value range
-    if @search_params[:reading_value_min].present? && @search_params[:reading_value_max].present?
+    if search_params[:reading_value_min].present? && search_params[:reading_value_max].present?
       where[:reading_value] = {
-        gte: @search_params[:reading_value_min],
-        lte: @search_params[:reading_value_max]
+        gte: search_params[:reading_value_min],
+        lte: search_params[:reading_value_max]
       }
-    elsif @search_params[:reading_value_min].present?
+    elsif search_params[:reading_value_min].present?
       where[:reading_value] = {
-        gte: @search_params[:reading_value_min]
+        gte: search_params[:reading_value_min]
       }
-    elsif @search_params[:reading_value_max].present?
+    elsif search_params[:reading_value_max].present?
       where[:reading_value] = {
-        lte: @search_params[:reading_value_max]
+        lte: search_params[:reading_value_max]
       }
     end
 
@@ -94,16 +95,23 @@ class WeatherReadingsSearch
   end
 
   private def order
-    return {} unless @search_params[:sort_attribute].present?
+    return {} unless search_params[:sort_attribute].present?
 
-    order = @search_params[:sort_order].presence || :asc
-    { @search_params[:sort_attribute] => order }
+    order = search_params[:sort_order].presence || :asc
+    { search_params[:sort_attribute] => order }
   end
 
+  # This can be used for displaying active filters in UI.
   private def active_filters
-    @search_params.slice( :reading_value_min,
-                          :reading_value_max,
-                          :reading_type
-                        ).to_h.reject { |_, v| v.blank? }
+    slice = [
+      "q",
+      "reading_value_min",
+      "reading_value_max",
+      "reading_type",
+      "reading_date",
+      "sort_attribute",
+      "sort_order",
+    ]
+    search_params.to_h.slice(*slice).reject { |_, v| v.blank? }
   end
 end

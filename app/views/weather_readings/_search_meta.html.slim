@@ -1,9 +1,15 @@
-.navbar-text.search_meta
-  span = pluralize(@weather_readings.try!(:total_count), "result")
-  span = active_filters_text(@active_filters)
-
 css:
-  .search_meta > span {
-    padding: 0 3px;
-    font-size: .8rem;
+  .search_meta span {
+    margin: 0 0.5rem 0 0;
   }
+
+.navbar-text.search_meta
+  .h5
+    span [style="display:block;"]
+      = total_count_text(@weather_readings)
+    span.tag.tag-pill.tag-primary
+      = q_text(@active_filters)
+    span.tag.tag-pill.tag-primary
+      = reading_value_text(@active_filters)
+    span.tag.tag-pill.tag-primary
+      = reading_type_text(@active_filters)
