@@ -4,20 +4,20 @@
       label> Reading dates:
       .row
         .col-sm-6
-          = text_field_tag "reading_date_min_year", "", placeholder: "Year", class: "form-control"
-          = text_field_tag "reading_date_min_month", "", placeholder: "Month", class: "form-control"
-          = text_field_tag "reading_date_min_day", "", placeholder: "Day", class: "form-control"
+          = reading_year_select_tag(params, "reading_date_min_year")
+          = reading_month_select_tag(params, "reading_date_min_month")
+          = reading_day_select_tag(params, "reading_date_min_day")
         .col-sm-6
-          = text_field_tag "reading_date_max_year", "", placeholder: "Year", class: "form-control"
-          = text_field_tag "reading_date_max_month", "", placeholder: "Month", class: "form-control"
-          = text_field_tag "reading_date_max_day", "", placeholder: "Day", class: "form-control"
+          = reading_year_select_tag(params, "reading_date_max_year")
+          = reading_month_select_tag(params, "reading_date_max_month")
+          = reading_day_select_tag(params, "reading_date_max_day")
     li.list-group-item
       label> Reading values:
       .row
         .col-sm-6
-          = text_field_tag "reading_value_min", "", placeholder: "Min", class: "form-control"
+          = text_field_tag("reading_value_min", "", placeholder: "Min")
         .col-sm-6
-          = text_field_tag "reading_value_max", "", placeholder: "Max", class: "form-control"
+          = text_field_tag("reading_value_max", "", placeholder: "Max")
     li.list-group-item
       .row
         .col-sm-6

@@ -21,8 +21,8 @@ module WeatherReadingsHelper
   end
 
   def reading_type_text(filter_hash)
-    if filter_hash["reading_type"]&.present?
-      filter_hash["reading_type"]
+    if filter_hash[:reading_type].present?
+      "Reading type: #{filter_hash[:reading_type]}"
     end
   end
 
@@ -31,22 +31,73 @@ module WeatherReadingsHelper
     if min.present? && max.present?
       "Reading value: #{min} to #{max}"
     elsif min.present?
-      "Reading value: Min $#{min}"
+      "Reading value: Min #{min}"
     elsif max.present?
-      "Reading value: Max $#{max}"
+      "Reading value: Max #{max}"
     end
   end
 
-  private def sort_text(filter_hash)
-
-    # TODO
-
+  # TODO
+  def reading_date_text(filter_hash)
+    # if filter_hash[:reading_type].present?
+    #   "Reading type: #{filter_hash[:reading_type]}"
+    # end
   end
 
-  private def reading_type_text(filter_hash)
-    "Reading type: #{filter_hash[:reading_type]}" if filter_hash[:reading_type].present?
+
+  # ---
+  # Filtering
+  # ---
+
+
+  def reading_type_select_tag(params)
+    reading_types = WeatherReading.distinct(:reading_type).pluck(:reading_type)
+    select_tag(
+      "reading_type",
+      options_for_select(reading_types, params[:reading_type]),
+      include_blank: true
+    )
   end
 
+  # = text_field_tag "reading_date_min_year", "", placeholder: "Year", class: "form-control"
+  # = text_field_tag "reading_date_min_month", "", placeholder: "Month", class: "form-control"
+  # = text_field_tag "reading_date_min_day", "", placeholder: "Day", class: "form-control"
+  def reading_year_select_tag(params, key)
+    select_tag(
+      key,
+      options_for_select(reading_date_years, params[key]),
+      include_blank: true
+    )
+  end
+
+  def reading_month_select_tag(params, key)
+    select_tag(
+      key,
+      options_for_select(reading_date_months, params[key]),
+      include_blank: true
+    )
+  end
+
+  def reading_day_select_tag(params, key)
+    select_tag(
+      key,
+      options_for_select(reading_date_days, params[key]),
+      include_blank: true
+    )
+  end
+
+  def reading_date_years
+    # FIXME: Can be more efficient
+    WeatherReading.pluck( :reading_date).map(&:year).uniq
+  end
+
+  def reading_date_months
+    (1..12).to_a
+  end
+
+  def reading_date_days
+    (1..31).to_a
+  end
 
   # ---
   # Sorting
@@ -78,29 +129,6 @@ module WeatherReadingsHelper
       "sort_order",
       options_for_select(options, params[:sort_order]),
       include_blank: false
-    )
-  end
-
-
-  # ---
-  # Filtering
-  # ---
-
-
-  def reading_type_select_tag(params)
-    reading_types = WeatherReading.distinct(:reading_type).pluck(:reading_type)
-    select_tag(
-      "reading_type",
-      options_for_select(reading_types, params[:reading_type]),
-      include_blank: true
-    )
-  end
-
-  def bathroom_count_select_tag(params)
-    select_tag(
-      "bathroom_count",
-      options_for_select(%w(1+ 2+ 3+), params[:bathroom_count]),
-      include_blank: true
     )
   end
 end
