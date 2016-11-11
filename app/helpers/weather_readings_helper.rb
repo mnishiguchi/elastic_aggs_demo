@@ -59,30 +59,30 @@ module WeatherReadingsHelper
     )
   end
 
-  # = text_field_tag "reading_date_min_year", "", placeholder: "Year", class: "form-control"
-  # = text_field_tag "reading_date_min_month", "", placeholder: "Month", class: "form-control"
-  # = text_field_tag "reading_date_min_day", "", placeholder: "Day", class: "form-control"
-  def reading_year_select_tag(params, key)
+  def reading_year_select_tag(params, key, options={default_select: :first})
+    default_select = reading_date_years.try!(options[:default_select])
     select_tag(
       key,
-      options_for_select(reading_date_years, params[key]),
-      include_blank: true
+      options_for_select(reading_date_years, default_select),
+      include_blank: false
     )
   end
 
-  def reading_month_select_tag(params, key)
+  def reading_month_select_tag(params, key, options={default_select: :first})
+    default_select = reading_date_months.try!(options[:default_select])
     select_tag(
       key,
-      options_for_select(reading_date_months, params[key]),
-      include_blank: true
+      options_for_select(reading_date_months, default_select),
+      include_blank: false
     )
   end
 
-  def reading_day_select_tag(params, key)
+  def reading_day_select_tag(params, key, options={default_select: :first})
+    default_select = reading_date_days.try!(options[:default_select])
     select_tag(
       key,
-      options_for_select(reading_date_days, params[key]),
-      include_blank: true
+      options_for_select(reading_date_days, default_select),
+      include_blank: false
     )
   end
 

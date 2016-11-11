@@ -4,13 +4,13 @@
       label> Reading dates:
       .row
         .col-sm-6
-          = reading_year_select_tag(params, "reading_date_min_year")
-          = reading_month_select_tag(params, "reading_date_min_month")
-          = reading_day_select_tag(params, "reading_date_min_day")
+          = reading_year_select_tag(params, "reading_date_min_year", default_select: :first)
+          = reading_month_select_tag(params, "reading_date_min_month", default_select: :first)
+          = reading_day_select_tag(params, "reading_date_min_day", default_select: :first)
         .col-sm-6
-          = reading_year_select_tag(params, "reading_date_max_year")
-          = reading_month_select_tag(params, "reading_date_max_month")
-          = reading_day_select_tag(params, "reading_date_max_day")
+          = reading_year_select_tag(params, "reading_date_max_year", default_select: :last)
+          = reading_month_select_tag(params, "reading_date_max_month", default_select: :last)
+          = reading_day_select_tag(params, "reading_date_max_day", default_select: :last)
     li.list-group-item
       label> Reading values:
       .row
