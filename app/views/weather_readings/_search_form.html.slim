@@ -26,6 +26,7 @@ scss:
   #advanced_search_fields
     = render "advanced_search_fields"
 
+script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js" 
 javascript:
   // Toggle advanced_search_fields.
   $('#advanced_search_fields_toggle').on('click', function() {
@@ -34,4 +35,17 @@ javascript:
   // Close advanced_search_fields on submit.
   $('button[type="submit"]').on('click', function() {
     $('#advanced_search_fields').hide();
+  });
+
+  // http://twitter.github.io/typeahead.js/examples/
+  var weather_readings_autocomplete = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: {
+      url         : '/weather_readings/autocomplete.json'
+    }
+  });
+  $('#q').typeahead(null, {
+    name: 'weather_readings_autocomplete',
+    source: weather_readings_autocomplete
   });

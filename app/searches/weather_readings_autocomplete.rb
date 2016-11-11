@@ -1,7 +1,12 @@
 class WeatherReadingsAutocomplete < WeatherReadingsSearch
 
   def json
-    search_model.search(query, search_constraints).to_json
+    search_model.search(query, search_constraints).map do |result|
+      [
+        result.reading_type,
+        result.station_name
+      ]
+    end.flatten.uniq.to_json
   end
 
   private def search_constraints
