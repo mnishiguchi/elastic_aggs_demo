@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require weather_reading_autocomplete
+//= require_self
 
 // Entry point of Browserify.
-// require("./main");
+require("./main");
