@@ -10,12 +10,8 @@ scss:
 = form_tag weather_readings_path, method: :get, remote:true do |f|
 
   .input-group
-    input.form-control.typeahead [
-      type="text"
-      id="q"
-      name="q"
-      placeholder="Search keyword..."
-    ]
+
+    select#q [placeholder="Pick a repository..."]
 
     .input-group-btn
       button.btn.btn-outline-success [type="submit"]
