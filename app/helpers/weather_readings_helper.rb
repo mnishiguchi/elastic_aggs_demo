@@ -87,8 +87,7 @@ module WeatherReadingsHelper
   end
 
   def reading_date_years
-    # FIXME: Can be more efficient
-    WeatherReading.pluck( :reading_date).map(&:year).uniq
+    WeatherReading.pluck(:reading_date).map(&:year).uniq
   end
 
   def reading_date_months
@@ -98,6 +97,7 @@ module WeatherReadingsHelper
   def reading_date_days
     (1..31).to_a
   end
+
 
   # ---
   # Sorting
