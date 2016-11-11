@@ -1,11 +1,9 @@
 class WeatherReadingsAutocomplete < WeatherReadingsSearch
 
   def json
-    search_model.search(query, search_constraints).map do |result|
-      [
-        result.reading_type,
-        result.station_name
-      ]
+    results = search_model.search(query, search_constraints)
+    results.map(&:to_h).map do |result|
+      result.slice("station", "reading_type", "station_name").values
     end.flatten.uniq.to_json
   end
 
@@ -13,7 +11,6 @@ class WeatherReadingsAutocomplete < WeatherReadingsSearch
     {
       match:        :word_start,
       misspellings: { below: 5 },
-      limit: 10,
       load:  false,
       where: where,
       order: order,

@@ -10,7 +10,10 @@ class WeatherReadingsController < ApplicationController
 
   # GET /weather_readings/autocomplete.json
   def autocomplete
-    render json: WeatherReadingsAutocomplete.new(search_params).json
+    json = WeatherReadingsAutocomplete.new(search_params).json
+
+    ap json
+    render json: json
   end
 
   private def search_params
