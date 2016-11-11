@@ -1,14 +1,18 @@
 class WeatherReadingsSearch
   attr_reader :search_params, :query
 
-  private def search_model
+  def search_model
     WeatherReading
   end
 
   # Returns an Searchkick::Results object which responds like an array.
   def initialize(search_params)
     @search_params = search_params
-    @query         = search_params[:q].presence || "*"
+    @query         = query
+  end
+
+  def query
+    search_params[:q].presence || "*"
   end
 
   # A wrapper of Searchkick's search method. We configure common behavior of
